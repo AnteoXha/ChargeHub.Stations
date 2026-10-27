@@ -1,6 +1,6 @@
 using System;
 
-public class ChargingStation
+public class ChargingStation : IReportable
 {
     public string Id { get; }
     public double MaxKw { get; }
@@ -10,7 +10,7 @@ public class ChargingStation
     {
         if (maxKw <= 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(maxKw), "MaxKw måste vara större än 0.");
+            throw new ArgumentOutOfRangeException(nameof(maxKw), "MaxKw deve essere maggiore di 0.");
         }
         Id = id;
         MaxKw = maxKw;
@@ -20,7 +20,7 @@ public class ChargingStation
     {
         if (!IsAvailable)
         {
-            throw new InvalidOperationException("Stationen är redan upptagen.");
+            throw new InvalidOperationException("La stazione è già occupata.");
         }
         IsAvailable = false;
     }
@@ -28,5 +28,10 @@ public class ChargingStation
     public void StopCharging()
     {
         IsAvailable = true;
+    }
+
+    public string GetReport()
+    {
+        return $"Station {Id}: {MaxKw} kW";
     }
 }

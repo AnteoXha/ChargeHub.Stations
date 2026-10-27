@@ -1,21 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 
 class Program
 {
     static void Main(string[] args)
     {
-        try
+        List<IReportable> reportables = new List<IReportable>
         {
-            ChargingStation station = new ChargingStation("AC-01", 11);
+            new Vehicle(1, 75.0),
+            new ChargingStation("AC-01", 11),
+            new ChargingStation("DC-01", 150)
+        };
 
-            station.StartCharging();
-            Console.WriteLine($"Stazione {station.Id} avviata con successo. Disponibile: {station.IsAvailable}");
-
-            station.StartCharging();
-        }
-        catch (InvalidOperationException ex)
+        foreach (var item in reportables)
         {
-            Console.WriteLine($"Felmeddelande: {ex.Message}");
+            Console.WriteLine(item.GetReport());
         }
     }
 }
